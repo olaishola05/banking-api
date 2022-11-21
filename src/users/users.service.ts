@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -13,6 +14,13 @@ export class UsersService {
     const newUser = new this.userModel(CreateUserDto);
     const result = await newUser.save();
     return result.id as string;
+  }
+
+  async comparePasswords(
+    attemptPassword: string,
+    password: string,
+  ): Promise<boolean> {
+    return await bcrypt.compare(attemptPassword, password);
   }
 
   async getUsers(): Promise<User[]> {
