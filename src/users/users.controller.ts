@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Param } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
@@ -21,5 +21,12 @@ export class UsersController {
   async getUsers(): Promise<any> {
     const users = await this.UsersService.getUsers();
     return users;
+  }
+
+  @Get('users/:id')
+  @UseGuards(AuthGuard())
+  async getUser(@Param('id') id: string): Promise<any> {
+    const user = await this.UsersService.getUser(id);
+    return user;
   }
 }

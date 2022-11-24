@@ -3,6 +3,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { LoginUserDto } from '../users/dto/login-user.dto';
+import { User } from '../users/users.model';
 
 @Injectable()
 export class AuthService {
@@ -41,14 +42,16 @@ export class AuthService {
     return this.createJwtPayload(user);
   }
 
-  createJwtPayload(user: any) {
+  createJwtPayload(user: User) {
     const data: JwtPayload = {
       email: user.email,
     };
     const jwt = this.jwtService.sign(data);
     return {
-      expiresIn: 3600,
+      id: user.id,
       token: jwt,
+      role: user.role,
+      expireIn: 3600,
     };
   }
 }
