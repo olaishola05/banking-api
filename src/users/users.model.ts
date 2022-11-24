@@ -11,6 +11,7 @@ export const UserSchema = new mongoose.Schema({
   },
   password: { type: String, required: true },
   phone_number: { type: Number, required: true, unique: true },
+  role: { type: String, required: true, default: 'user' },
 });
 
 export interface User {
@@ -19,4 +20,5 @@ export interface User {
   email: string;
   password: string;
   phone_number: number;
+  role: string;
 }

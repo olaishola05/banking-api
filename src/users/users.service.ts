@@ -31,6 +31,7 @@ export class UsersService {
       email: user.email,
       password: user.password,
       phone_number: user.phone_number,
+      role: user.role,
     }));
   }
 
@@ -42,6 +43,7 @@ export class UsersService {
       email: user.email,
       password: user.password,
       phone_number: user.phone_number,
+      role: user.role,
     };
   }
 
