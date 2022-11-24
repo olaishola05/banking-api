@@ -9,7 +9,7 @@ export const UserSchema = new mongoose.Schema({
     lowercase: true,
     trim: true,
   },
-  password: { type: Number, required: true },
+  password: { type: String, required: true },
   phone_number: { type: Number, required: true, unique: true },
 });
 
@@ -17,6 +17,6 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  password: number;
+  password: string;
   phone_number: number;
 }

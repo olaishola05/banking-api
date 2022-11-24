@@ -15,20 +15,20 @@ export class AuthService {
     const userToAttempt = await this.UsersService.getUserByEmail(
       loginAttempt.email,
     );
-    // if (userToAttempt) {
-    //   const { password } = userToAttempt;
-    //   const match = await this.UsersService.comparePasswords(
-    //     loginAttempt.password,
-    //     password,
-    //   );
-    //   if (match) {
-    //     return this.createJwtPayload(userToAttempt);
-    //   } else {
-    //     throw new UnauthorizedException('Invalid credentials');
-    //   }
-    // } else {
-    //   throw new UnauthorizedException('User does not exist');
-    // }
+    if (userToAttempt) {
+      const { password } = userToAttempt;
+      const match = await this.UsersService.comparePasswords(
+        loginAttempt.password,
+        password,
+      );
+      if (match) {
+        return this.createJwtPayload(userToAttempt);
+      } else {
+        throw new UnauthorizedException('Invalid credentials');
+      }
+    } else {
+      throw new UnauthorizedException('User does not exist');
+    }
   }
 
   async validateUser(payload: JwtPayload): Promise<any> {

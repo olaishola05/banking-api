@@ -15,7 +15,7 @@ import { UserSchema } from 'src/users/users.model';
     UsersModule,
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     JwtModule.register({
-      secretOrPrivateKey: 'mysecretamazingKey',
+      secret: 'mysecretamazingKey',
       signOptions: {
         expiresIn: 3600,
       },
