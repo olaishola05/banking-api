@@ -59,4 +59,23 @@ export class AccountService {
       throw new NotFoundException('Account does not belong to user.');
     }
   }
+
+  async updateAcct(id: string, balance: number): Promise<Account> {
+    const user = await this.UsersService.getUser(id);
+    const account = await this.AccountModel.findOne({ userId: user.id }).exec();
+    if (user.id === account.userId) {
+      account.balance = balance;
+      account.save();
+      return account;
+    } else {
+      throw new NotFoundException('Account does not belong to user.');
+    }
+  }
+
+  async getAcctByAcctNumber(accountNumber: number): Promise<Account> {
+    const account = await this.AccountModel.findOne({
+      accountNumber: accountNumber,
+    }).exec();
+    return account;
+  }
 }
