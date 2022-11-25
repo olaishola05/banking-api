@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { AccountModule } from './account/account.module';
 // import { RequestContextModule } from 'nestjs-request-context';
+import { TransactionModule } from './transaction/transaction.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AccountModule } from './account/account.module';
     UsersModule,
     AuthModule,
     AccountModule,
+    TransactionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
