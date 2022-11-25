@@ -3,6 +3,8 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/decorator/get-user.decorator';
+import { User } from './users.model';
 
 @Controller('api/v1/auth')
 export class UsersController {
@@ -18,8 +20,8 @@ export class UsersController {
 
   @Get('users')
   @UseGuards(AuthGuard())
-  async getUsers(): Promise<any> {
-    const users = await this.UsersService.getUsers();
+  async getUsers(@GetUser() user: User): Promise<any> {
+    const users = await this.UsersService.getUsers(user);
     return users;
   }
 

@@ -44,28 +44,10 @@ export class AccountService {
     }
   }
 
-  // async getAcct(id: string): Promise<Account> {
-  //   const account = await this.AccountModel.findById(id).exec();
-  //   const user = await this.UsersService.getUser(id);
-  //   console.log(account);
-
-  //   if (user.id === account?.userId) {
-  //     return {
-  //       id: account.id,
-  //       name: account.name,
-  //       balance: account.balance,
-  //       userId: account.userId,
-  //       accountNumber: account.accountNumber,
-  //     };
-  //   } else {
-  //     throw new NotFoundException('Account does not belong to user.');
-  //   }
-  // }
-
-  async getAcct(acctId: string, user: User): Promise<Account> {
-    const account = await this.AccountModel.findById(acctId).exec();
-    console.log(account);
-    if (user.id === account?.userId) {
+  async getAcct(id: string): Promise<Account> {
+    const user = await this.UsersService.getUser(id);
+    const account = await this.AccountModel.findOne({ userId: user.id }).exec();
+    if (user.id === account.userId) {
       return {
         id: account.id,
         name: account.name,

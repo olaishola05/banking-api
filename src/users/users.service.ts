@@ -23,16 +23,20 @@ export class UsersService {
     return await bcrypt.compare(attemptPassword, password);
   }
 
-  async getUsers(): Promise<User[]> {
+  async getUsers(user: User): Promise<User[]> {
     const users = await this.userModel.find().exec();
-    return users.map((user) => ({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      phone_number: user.phone_number,
-      role: user.role,
-    }));
+    if (user.role === 'admin') {
+      return users.map((user) => ({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        phone_number: user.phone_number,
+        role: user.role,
+      }));
+    } else {
+      throw new NotFoundException('Unauthorized to view all users.');
+    }
   }
 
   async getUser(userId: string): Promise<User> {

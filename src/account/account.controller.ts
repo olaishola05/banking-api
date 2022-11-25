@@ -28,8 +28,8 @@ export class AccountController {
 
   @Get(':id')
   @UseGuards(AuthGuard())
-  async getASingleAccount(@Param('id') id: string, @GetUser() user: User) {
-    const account = await this.AccountService.getAcct(id, user);
+  async getAccount(@Param('id') id: string) {
+    const account = await this.AccountService.getAcct(id);
     return account;
   }
 }
