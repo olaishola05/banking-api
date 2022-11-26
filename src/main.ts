@@ -6,6 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Banking application API')
     .setDescription(
       'An API for a banking application built with NestJS, MongoDB, and PassportJS for authentication.',

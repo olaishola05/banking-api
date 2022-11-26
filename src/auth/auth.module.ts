@@ -17,7 +17,7 @@ import { UserSchema } from 'src/users/users.model';
     JwtModule.register({
       secret: 'mysecretamazingKey',
       signOptions: {
-        expiresIn: 3600,
+        expiresIn: 24 * 60 * 60,
       },
     }),
   ],
