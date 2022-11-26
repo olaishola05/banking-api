@@ -6,12 +6,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Banking application API')
     .setDescription(
       'An API for a banking application built with NestJS, MongoDB, and PassportJS for authentication.',
     )
     .setVersion('1.0')
-    .addTag('nestjs')
+    .addTag('banking')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

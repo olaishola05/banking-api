@@ -51,7 +51,7 @@ export class AuthService {
       id: user.id,
       token: jwt,
       role: user.role,
-      expireIn: 3600,
+      expireIn: 24 * 60 * 60,
     };
   }
 }
