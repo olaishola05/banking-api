@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -50,22 +49,6 @@ export class UsersService {
     } catch (error) {
       throw new NotFoundException('Could not find user.');
     }
-  }
-
-  async updateUser(
-    userId: string,
-    UpdateUserDto: UpdateUserDto,
-  ): Promise<User> {
-    const updatedUser = await this.userModel.findByIdAndUpdate(
-      userId,
-      UpdateUserDto,
-    );
-    return updatedUser;
-  }
-
-  async deleteUser(userId: string): Promise<any> {
-    const deletedUser = await this.userModel.findByIdAndDelete(userId);
-    return deletedUser;
   }
 
   async getUserByEmail(email: string): Promise<User> {

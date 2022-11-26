@@ -11,7 +11,7 @@ async function bootstrap() {
       'An API for a banking application built with NestJS, MongoDB, and PassportJS for authentication.',
     )
     .setVersion('1.0')
-    .addTag('nestjs')
+    .addTag('banking')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

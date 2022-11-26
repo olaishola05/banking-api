@@ -1,23 +1,25 @@
-import {
-  Controller,
-  Post,
-  Body,
-  UseGuards,
-  Get,
-  NotFoundException,
-} from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Get } from '@nestjs/common';
 import { TransactionService } from './transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Transaction } from './transaction.model';
 import { User } from 'src/users/users.model';
 import { GetUser } from 'src/decorator/get-user.decorator';
-import { NotFoundError } from 'rxjs';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('Transaction')
 @Controller('/api/v1/transactions')
 export class TransactionController {
   constructor(private TransactionService: TransactionService) { }
 
+  @ApiOperation({ summary: 'Create a transaction, with transaction types' })
+  @ApiResponse({ status: 201, description: 'Transaction created successful.' })
   @Post()
   @UseGuards(AuthGuard())
   async Transactions(
@@ -30,6 +32,11 @@ export class TransactionController {
     );
   }
 
+  @ApiOperation({ summary: 'Get all user transactions' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns array of user transactions',
+  })
   @Get()
   @UseGuards(AuthGuard())
   async getUserTransactions(@GetUser() user: User): Promise<Transaction[]> {
