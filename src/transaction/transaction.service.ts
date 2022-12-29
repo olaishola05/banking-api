@@ -70,9 +70,9 @@ export class TransactionService {
     }
   }
 
-  async getTransactionsByUser(userId: string): Promise<Transaction[]> {
+  async getTransactionsByUser(id: string): Promise<Transaction[]> {
     const transactions = await this.TransactionModel.find({
-      userId: userId,
+      userId: id,
     }).exec();
     if (!transactions) {
       throw new NotFoundException('User has no transactions histories.');

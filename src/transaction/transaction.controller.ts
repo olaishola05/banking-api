@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Get } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Get, Param } from '@nestjs/common';
 import { TransactionService } from './transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -37,9 +37,9 @@ export class TransactionController {
     status: 200,
     description: 'Returns array of user transactions',
   })
-  @Get()
+  @Get('/:id')
   @UseGuards(AuthGuard())
-  async getUserTransactions(@GetUser() user: User): Promise<Transaction[]> {
-    return this.TransactionService.getTransactionsByUser(user.id);
+  async getUserTransactions(@Param('id') id: string): Promise<Transaction[]> {
+    return this.TransactionService.getTransactionsByUser(id);
   }
 }
