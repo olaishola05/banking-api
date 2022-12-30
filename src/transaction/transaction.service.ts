@@ -73,7 +73,9 @@ export class TransactionService {
   async getTransactionsByUser(id: string): Promise<Transaction[]> {
     const transactions = await this.TransactionModel.find({
       userId: id,
-    }).exec();
+    })
+      .sort({ createdAt: -1 })
+      .exec();
     if (!transactions) {
       throw new NotFoundException('User has no transactions histories.');
     }

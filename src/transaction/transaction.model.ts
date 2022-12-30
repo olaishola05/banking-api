@@ -7,6 +7,8 @@ export const TransactionSchema = new mongoose.Schema({
   amount: { type: Number, required: true },
   type: { type: String, required: true, enum: ['credit', 'debit', 'transfer'] },
   destinationAcctNumber: { type: String },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 });
 
 export interface Transaction {
@@ -15,4 +17,6 @@ export interface Transaction {
   amount: number;
   type: string;
   destinationAcctNumber?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
