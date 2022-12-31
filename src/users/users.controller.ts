@@ -1,4 +1,14 @@
-import { Controller, Post, Body, Get, UseGuards, Param } from '@nestjs/common';
+import { UpdateUserDto } from './dto/update-user.dto';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  UseGuards,
+  Param,
+  Delete,
+  Patch,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
@@ -51,5 +61,36 @@ export class UsersController {
   async getUser(@Param('id') id: string): Promise<any> {
     const user = await this.UsersService.getUser(id);
     return user;
+  }
+
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'delete user by Id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns user deleted successfully',
+  })
+  @Delete('users/:id')
+  @UseGuards(AuthGuard())
+  async deleteUser(
+    @Param('id') id: string,
+    @GetUser() user: User,
+  ): Promise<any> {
+    return await this.UsersService.deleteUserById(id, user);
+  }
+
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Update a user by Id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns user updated successfully',
+  })
+  @Patch('users/:id')
+  @UseGuards(AuthGuard())
+  async updateUser(
+    @Param('id') id: string,
+    @Body() UpdateUserDto: UpdateUserDto,
+    @GetUser() user: User,
+  ): Promise<any> {
+    return await this.UsersService.updateUserById(id, user, UpdateUserDto);
   }
 }
