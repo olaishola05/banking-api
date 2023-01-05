@@ -24,7 +24,7 @@ export class UsersService {
   }
 
   async getUsers(user: User): Promise<User[]> {
-    const users = await this.userModel.find().exec();
+    const users = await this.userModel.find().sort({ createdAt: -1 }).exec();
     if (user.role === 'admin') {
       return users
         .filter((user) => user.role !== 'admin')
@@ -35,6 +35,8 @@ export class UsersService {
           password: user.password,
           phone_number: user.phone_number,
           role: user.role,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
         }));
     } else {
       throw new NotFoundException('Unauthorized to view all users.');

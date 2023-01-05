@@ -12,6 +12,8 @@ export const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   phone_number: { type: Number, required: true, unique: true },
   role: { type: String, required: true, default: 'user' },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 });
 
 export interface User {
@@ -21,4 +23,6 @@ export interface User {
   password: string;
   phone_number: number;
   role: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
