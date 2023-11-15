@@ -19,7 +19,7 @@ A backend API for banking services with features to register & authenticate a us
 
 ## Demo
 
-API doc: http://localhost:5000/api
+API doc: http://localhost:3000/api
 </br>
 
 ## Built With
